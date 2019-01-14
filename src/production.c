@@ -15,8 +15,77 @@ bool production(int argc, char* argv[])
 {
 	bool results = false;
 	printf("CALENDAR\n");
-
-
+	int year = 2000;
+	for(int i = 0; i < 12; i++) {
+		switch(i) {
+			case 0:
+				printf("January \n");
+				break;
+			case 1:
+				printf("February \n");
+				break;
+			case 2:
+				printf("March \n");
+				break;
+			case 3:
+				printf("April \n");
+				break;
+			case 4:
+				printf("May \n");
+				break;
+			case 5:
+				printf("June \n");
+				break;
+			case 6:
+				printf("July \n");
+				break;
+			case 7:
+				printf("August \n");
+				break;
+			case 8:
+				printf("September \n");
+				break;
+			case 9:
+				printf("October \n");
+				break;
+			case 10:
+				printf("November \n");
+				break;
+			case 11:
+				printf("December \n");
+				break;
+			default:
+				printf("Month Not Found");
+				break;
+		}
+		printf("Sun  Mon  Tue  Wed  Thu  Fri  Sat  \n");
+		int days = calculate_days_in_month(year, i);
+		for(int x = 0; x < calculate_day_of_week(1, i, year); x++) {
+			printf("     ");
+		}
+		for(int j = 1; j <= days; j++) {
+			int day = calculate_day_of_week(j, i, year);
+			if(day == 6) {
+				if(j < 10) {
+					printf("  %d  \n", j);
+				}
+				else {
+					printf(" %d \n", j);
+				}
+			}
+			else if(j < 10){
+				printf("  %d  ", j);
+			}
+			else {
+				printf(" %d  ", j);
+			}
+			if(j == days && day%6 != 0) {
+				printf("\n");
+			}
+		}
+	}
+	printf("\n");
+	results = true;
 	return results;
 }
 
@@ -43,7 +112,7 @@ int calculate_day_of_week(int day, //first day of month is 1
 		int year)
 {//invalid input gets a -1 answer
 	int ans = -1;
-	if(is_valid_month(month) == 1 && is_valid_day(year, month, day) == 1) {
+	if(is_valid_month(month) == 1 && is_valid_day(year, month, day) == 1 && year >= 1752) { //if invalid input returns -1
 		int m = month == 0 ? 11 : month == 1 ? 12 : month-1;
 		int D = (month == 0 || month == 1) ? (year % 100 == 0 ? 99 : year%100-1) : year%100 ;
 		int C = (month == 0 || month == 1) ? (year % 100 == 0 ? year/100-1 : year/100) : year/100;
@@ -54,6 +123,7 @@ int calculate_day_of_week(int day, //first day of month is 1
 		else {
 			f = f%7;
 		}
+		if(f == 7) f = 0;
 		ans = f;
 	}
 	return ans;

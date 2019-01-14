@@ -221,6 +221,7 @@ bool testCalcDayOfWeek(void)
 		ok4 = true;
 		puts("2020 works");
 	}
+	printf("%d \n", calculate_day_of_week (1, 9, 2000));
 	results = ok1 && ok2 && ok3 && ok4;
 
 	return results;
