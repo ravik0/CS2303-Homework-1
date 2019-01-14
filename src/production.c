@@ -15,7 +15,7 @@ bool production(int argc, char* argv[])
 {
 	bool results = false;
 	printf("CALENDAR\n");
-	int year = 2000;
+	int year = 2001;
 	for(int i = 0; i < 12; i++) {
 		switch(i) {
 			case 0:
@@ -79,7 +79,7 @@ bool production(int argc, char* argv[])
 			else {
 				printf(" %d  ", j);
 			}
-			if(j == days && day%6 != 0) {
+			if(j == days && day != 6) {
 				printf("\n");
 			}
 		}
