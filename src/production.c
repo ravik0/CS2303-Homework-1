@@ -2,7 +2,7 @@
  * production.c
  *
  *  Created on: Nov 3, 2018
- *      Author: Therese Smith
+ *      Author: Ravi Kirschner
  */
 
 #include <stdbool.h>
@@ -14,8 +14,20 @@
 bool production(int argc, char* argv[])
 {
 	bool results = false;
+	int year = -1;
+	if(argc == 2) {
+		year = strtol(argv[1], NULL, 10);
+	}
+	else {
+		printf("Please enter a year: ");
+		scanf("%d", &year);
+	}
+	if(year < 1752) {
+		printf("The year was invalid!\n");
+		results = false;
+		return results;
+	}
 	printf("CALENDAR\n");
-	int year = 2001;
 	for(int i = 0; i < 12; i++) {
 		switch(i) {
 			case 0:
