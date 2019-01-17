@@ -2,7 +2,7 @@
  * tests.h
  *
  *  Created on: Nov 3, 2018
- *      Author: Therese Smith
+ *      Author: Ravi Kirschner
  */
 
 #ifndef TESTS_H_

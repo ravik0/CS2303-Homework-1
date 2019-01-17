@@ -3,6 +3,7 @@
  *
  *  Created on: Nov 3, 2018
  *      Author: Ravi Kirschner
+ *      @author Ravi Kirschner
  */
 
 #include <stdbool.h>
@@ -12,114 +13,126 @@
 #include <math.h>
 
 /**
- Function to create a calendar given a year.
-
  Specify the year either as the first program argument, or pass in an argument at run-time and it
  will print a calendar from January to December.
- @param argc the size of argv
- @param argv array of pointers to arguments in memory.
- @return true if succeeded, false if failed
- **/
+ * @param argc Number of words on the command line
+ * @param argv Array of pointers to character strings representing the words on the command line.
+ * @return true if Program was able to print a calendar.
+ *         false if User entered bad input.
+ */
 bool production(int argc, char* argv[])
 {
+
 	bool results = false;
+	bool done = false;
+	//get the year, Usage as needed.
 	int year = -1;
-	if(argc >= 2) {
-		year = strtol(argv[1], NULL, 10);
-	}
-	else {
-		printf("Please enter a year: ");
-		scanf("%d", &year);
-	}
-	if(year < 1752) {
-		printf("The year was invalid!\n");
-		results = false;
-		return results;
-	}
-	printf("CALENDAR\n");
-	for(int i = 0; i < 12; i++) {
-		//switch case to figure out what month to print
-		switch(i) {
-			case 0:
-				printf("January \n");
-				break;
-			case 1:
-				printf("February \n");
-				break;
-			case 2:
-				printf("March \n");
-				break;
-			case 3:
-				printf("April \n");
-				break;
-			case 4:
-				printf("May \n");
-				break;
-			case 5:
-				printf("June \n");
-				break;
-			case 6:
-				printf("July \n");
-				break;
-			case 7:
-				printf("August \n");
-				break;
-			case 8:
-				printf("September \n");
-				break;
-			case 9:
-				printf("October \n");
-				break;
-			case 10:
-				printf("November \n");
-				break;
-			case 11:
-				printf("December \n");
-				break;
-			default:
-				printf("Month Not Found");
-				break;
+	puts("CALENDAR");
+	if(argc<2)
+	{
+		puts("Enter a year");
+		scanf("%d",&year);
+		if(year<1752)
+		{
+			printf("Usage: Year should be greater than 1751, received %d.\n",year);
+			done = true;
 		}
-		printf("Sun  Mon  Tue  Wed  Thu  Fri  Sat  \n");
-		int days = calculate_days_in_month(year, i);
-		for(int x = 0; x < calculate_day_of_week(1, i, year); x++) {
-			printf("     "); //print the number of spaces required for the first day to land under the correct day of the week
+	}
+	else
+	{
+		char* ptr=0;
+		long year_l = strtol(argv[1],&ptr,10);
+		year = (int)year_l;
+		if(year<1752)
+		{
+			printf("Usage: Year should be greater than 1751, received %d.\n",year);
+			done = true;
 		}
-		for(int j = 1; j <= days; j++) {
-			int day = calculate_day_of_week(j, i, year);
-			//printing logic to make sure the number ends up in the correct spot
-			if(day == 6) {
-				if(j < 10) {
-					printf("  %d  \n", j);
+	}
+	if(!done) {
+		for(int i = 0; i < 12; i++) {
+			//switch case to figure out what month to print
+			switch(i) {
+				case 0:
+					printf("January \n");
+					break;
+				case 1:
+					printf("February \n");
+					break;
+				case 2:
+					printf("March \n");
+					break;
+				case 3:
+					printf("April \n");
+					break;
+				case 4:
+					printf("May \n");
+					break;
+				case 5:
+					printf("June \n");
+					break;
+				case 6:
+					printf("July \n");
+					break;
+				case 7:
+					printf("August \n");
+					break;
+				case 8:
+					printf("September \n");
+					break;
+				case 9:
+					printf("October \n");
+					break;
+				case 10:
+					printf("November \n");
+					break;
+				case 11:
+					printf("December \n");
+					break;
+				default:
+					printf("Month Not Found");
+					break;
+			}
+			printf("Sun  Mon  Tue  Wed  Thu  Fri  Sat  \n");
+			int days = calculate_days_in_month(year, i);
+			for(int x = 0; x < calculate_day_of_week(1, i, year); x++) {
+				printf("     "); //print the number of spaces required for the first day to land under the correct day of the week
+			}
+			for(int j = 1; j <= days; j++) {
+				int day = calculate_day_of_week(j, i, year);
+				//printing logic to make sure the number ends up in the correct spot
+				if(day == 6) {
+					if(j < 10) {
+						printf("  %d  \n", j);
+					}
+					else {
+						printf(" %d \n", j);
+					}
+				}
+				else if(j < 10){
+					printf("  %d  ", j);
 				}
 				else {
-					printf(" %d \n", j);
+					printf(" %d  ", j);
 				}
-			}
-			else if(j < 10){
-				printf("  %d  ", j);
-			}
-			else {
-				printf(" %d  ", j);
-			}
-			//if end of the month and the day is not the final day of the week, end the line
-			if(j == days && day != 6) {
-				printf("\n");
+				//if end of the month and the day is not the final day of the week, end the line
+				if(j == days && day != 6) {
+					printf("\n");
+				}
 			}
 		}
 	}
-	printf("\n");
-	results = true;
+	if(!done) {
+		results = true; //if nothing failed, result is true.
+	}
 	return results;
 }
 
-/**
- Function to calculate the amount of days in a month.
-
- Given the year and a month, the function will calculate the number of days that month has.
- @param year the year that you want to look for the month in, must be greater than 1751
- @param month the month you want to find the number of days in
- @return -1 if the year is invalid, or the number of days in the month
+/** Calculates how many days are in a given month for a given year.
+ * @param year The year we are checking.
+ * @param month The month we are checking. Range 0 through 11, where January = 0.
+ * @return Day of the week. Range 0 through 6, where Sunday = 0.
+ *         -1 if invalid input (e.g., year < 1752, month out of range).
  */
 int calculate_days_in_month(int year, int month)
 {
@@ -133,12 +146,11 @@ int calculate_days_in_month(int year, int month)
 	return(answer);
 }
 
-/**
- Function to determine if the year is a leap year
-
- If the year is valid, that is greater than 1751, the function will determine if the year is a leap year or not.
- @param year the year to look at
- @return -1 if the year is invalid, 0 if not leap year, and 1 if it is a leap year.
+/** Test if a given year is a leap year or not.
+ * @param year The year we are testing
+ * @return 1 if it is a valid leap year.
+ *         0 if a valid year, but not a leap year.
+ *        -1 if not a valid year (i.e. before the calendar rule changed in 1752).
  */
 int is_leap_year(int year)
 {
@@ -147,15 +159,14 @@ int is_leap_year(int year)
 
 }
 
-/**
- Function to calculate the day of the week
-
- Given a valid month[0:11], year[1752:infinity), and day (must be valid within that year and month), it will produce the day
- of the week that that day falls on, where 0 is Sunday and 6 is Saturday.
- @param day the day
- @param month the month
- @param year the year
- @return -1 for invalid input, or the day of the week[0:6]
+/** Determines what day of the week a particular date falls on.
+ * @param day Day of the month, counting from 1.
+ * @param month Range 0 through 11, where January = 0.
+ * @param year The year.
+ * @return -1 for invalid input (e.g., year < 1752, month out of range,
+ *            day < 1 or > appropriate for that month & year
+ *         0 through 6, where Sunday = 0.
+ *
  */
 int calculate_day_of_week(int day, //first day of month is 1
 		int month, //uses 0 for January

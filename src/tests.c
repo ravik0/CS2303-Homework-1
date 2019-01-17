@@ -2,13 +2,19 @@
  * tests.c
  *
  *  Created on: Nov 3, 2018
- *      Author: Therese Smith
+ *      Author: Ravi Kirschner
+ *      @author Ravi Kirschner
  */
 #include <stdbool.h>
 #include "tests.h"
 #include "production.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+/** Function to perform tests.
+ * @return true if all tests succeed, false if even one fails
+ *
+ */
 
 bool tests(void)
 {
@@ -24,6 +30,12 @@ bool tests(void)
 	results = ok1 && ok2 && ok3;
 	return results;
 }
+
+/** Tests whether the leap year function works.
+ * @param year Year we are testing
+ * @return true if all test case pass. False otherwise.
+ *
+ */
 bool testIsLeapYear(void)
 {
 	bool results = false;
@@ -79,24 +91,28 @@ bool testCalcDaysInMonth(void)
 	{
 		//test passed
 		ok1 = true;
+
 	}
 	bool ok2 = false;
 	if (calculate_days_in_month(1751,0)==-1)
 	{
 		//test passed
 		ok2 = true;
+
 	}
 	bool ok3 = false;
 	if (calculate_days_in_month(1752,-1)==-1)
 	{
 		//test passed
 		ok3 = true;
+
 	}
 	bool ok4 = false;
 	if (calculate_days_in_month(1752,0)==31)
 	{
 		//test passed
 		ok4 = true;
+
 	}
 	bool ok5 = false;
 	if (calculate_days_in_month(1752,1)==29)
@@ -195,7 +211,6 @@ bool testCalcDayOfWeek(void)
 	{
 		//good
 		ok1 = true;
-		puts("2000 works");
 	}
 	bool ok2 = false;
 	//Let's test this year
@@ -222,6 +237,7 @@ bool testCalcDayOfWeek(void)
 		puts("2020 works");
 	}
 	results = ok1 && ok2 && ok3 && ok4;
+
 	return results;
 
 }

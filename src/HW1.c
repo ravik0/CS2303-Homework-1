@@ -16,25 +16,24 @@
 
 
 int main(int argc, char*argv[]) {
-	bool ok=false;
-	printf("!!!Hello World We're doing HW1!!!\n");
-
+	bool ok=false;// Later will be set true if production runs OK
+	puts("!!!Hello World We're working HW1!!!");
 	if(tests())
 	{
 		ok=production(argc, argv);
 		if (ok)
 		{
-			printf("It seems to have worked.\n");
+			puts("Production seems to have worked.");
 		}
 		else
 		{
-			printf("It seems not to have worked.\n");
+			puts("Production seems not to have worked.");
 		}
 	}
 	else
 	{
-		printf("Something went wrong in the tests.\n");
+		puts("Something went wrong in the tests.");
 	}
-
 	return EXIT_SUCCESS;
 }
+
