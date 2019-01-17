@@ -131,7 +131,7 @@ bool production(int argc, char* argv[])
 /** Calculates how many days are in a given month for a given year.
  * @param year The year we are checking.
  * @param month The month we are checking. Range 0 through 11, where January = 0.
- * @return Day of the week. Range 0 through 6, where Sunday = 0.
+ * @return Days of the month in that specific year
  *         -1 if invalid input (e.g., year < 1752, month out of range).
  */
 int calculate_days_in_month(int year, int month)
