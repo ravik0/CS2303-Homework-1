@@ -54,46 +54,46 @@ bool production(int argc, char* argv[])
 			//switch case to figure out what month to print
 			switch(i) {
 				case 0:
-					printf("January \n");
+					printf("January\n");
 					break;
 				case 1:
-					printf("February \n");
+					printf("February\n");
 					break;
 				case 2:
-					printf("March \n");
+					printf("March\n");
 					break;
 				case 3:
-					printf("April \n");
+					printf("April\n");
 					break;
 				case 4:
-					printf("May \n");
+					printf("May\n");
 					break;
 				case 5:
-					printf("June \n");
+					printf("June\n");
 					break;
 				case 6:
-					printf("July \n");
+					printf("July\n");
 					break;
 				case 7:
-					printf("August \n");
+					printf("August\n");
 					break;
 				case 8:
-					printf("September \n");
+					printf("September\n");
 					break;
 				case 9:
-					printf("October \n");
+					printf("October\n");
 					break;
 				case 10:
-					printf("November \n");
+					printf("November\n");
 					break;
 				case 11:
-					printf("December \n");
+					printf("December\n");
 					break;
 				default:
 					printf("Month Not Found");
 					break;
 			}
-			printf("Sun  Mon  Tue  Wed  Thu  Fri  Sat  \n");
+			printf("Sun  Mon  Tue  Wed  Thu  Fri  Sat\n");
 			int days = calculate_days_in_month(year, i);
 			for(int x = 0; x < calculate_day_of_week(1, i, year); x++) {
 				printf("     "); //print the number of spaces required for the first day to land under the correct day of the week
@@ -103,20 +103,23 @@ bool production(int argc, char* argv[])
 				//printing logic to make sure the number ends up in the correct spot
 				if(day == 6) {
 					if(j < 10) {
-						printf("  %d  \n", j);
+						printf("  %d", j);
 					}
 					else {
-						printf(" %d \n", j);
+						printf(" %d", j);
 					}
 				}
 				else if(j < 10){
-					printf("  %d  ", j);
+					printf("  %d", j);
 				}
 				else {
-					printf(" %d  ", j);
+					printf(" %d", j);
+				}
+				if(day != 6 && j != days) {
+					printf("  ");
 				}
 				//if end of the month and the day is not the final day of the week, end the line
-				if(j == days && day != 6) {
+				if(j == days || day == 6) {
 					printf("\n");
 				}
 			}
