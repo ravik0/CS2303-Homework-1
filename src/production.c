@@ -158,6 +158,8 @@ int calculate_days_in_month(int year, int month)
 int is_leap_year(int year)
 {
 	int ans = year > 1751 ? (year%4 == 0 && year%100 != 0) ? 1 : (year%400 == 0) ? 1 : 0 : -1;
+	//if year > 1751, test for leap year. if 100% leap year, then return. else check if %400=0, if so then return, otherwise return 0
+	//if year <= 1751, return -1.
 	return ans;
 
 }
